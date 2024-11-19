@@ -1,3 +1,5 @@
 .idea
 .DS_Store
 __pycache__/tokenize.cpython-312.pyc
+*.txt
+*.wav

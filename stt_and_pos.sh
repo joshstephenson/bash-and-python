@@ -38,8 +38,10 @@ if [[ ! "$input" =~ txt$ ]]; then
 fi
 
 
-# Tokenize and then pass to python to analyze
-# There's no reason you necessarily want to lowercase here in bash, just showing that we can pass STDIN to the python script
-tr "[:upper:]" "[:lower:]" < "$input" \
-    | ./pos_tagger.py
+# We can write data to a file and then pass it to python
+tr "[:upper:]" "[:lower:]" < "$input" > /tmp/output.txt
+./pos_tagger.py -f /tmp/output.txt
+
+# Or we can just pass the data via STDIN
+tr "[:upper:]" "[:lower:]" < "$input" | ./pos_tagger.py
 
