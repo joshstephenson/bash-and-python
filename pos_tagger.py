@@ -4,6 +4,9 @@ import spacy
 from collections import Counter, defaultdict
 
 es_nlp = spacy.load('es_core_news_sm')
+if sys.stdin.isatty():
+    print("Didn't pass anything via STDIN")
+    exit(1)
 text = sys.stdin.read()
 
 spanish = es_nlp(text.strip())
