@@ -14,6 +14,6 @@ def main(filename):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", '--input', required=True, type=str)
+    parser.add_argument("-f", '--file', required=True, type=str)
     args = parser.parse_args()
-    main(args.input)
+    main(args.file)

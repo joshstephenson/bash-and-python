@@ -20,7 +20,7 @@ if [[ ! "$input" =~ txt$ ]]; then
         wavfile="${input%.*}.wav"
         if [ ! -f "$wavfile" ]; then
             echo "Converting to wav..."
-            ./convert.py -i "$input"
+            ./convert.py -f "$input"
         fi
 
         # We should have a wav file now
