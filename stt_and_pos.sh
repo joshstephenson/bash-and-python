@@ -17,24 +17,24 @@ if [[ ! "$input" =~ txt$ ]]; then
 
     # If it's also not a wav file, then we need to first convert it to a wav file before converting it to text
     if [[ ! "$input" =~ wav$ ]]; then
-        output="${input%.*}.wav"
-        if [ ! -f "$output" ]; then
+        wavfile="${input%.*}.wav"
+        if [ ! -f "$wavfile" ]; then
             echo "Converting to wav..."
             ./convert.py -i "$input"
         fi
 
         # We should have a wav file now
-        input="$output"
+        input="$wavfile"
     fi
 
     # Now convert it to text using python script
-    output="${input%.*}.txt"
-    if [ ! -f "$output" ]; then
+    txtfile="${input%.*}.txt"
+    if [ ! -f "$txtfile" ]; then
         echo "Converting to text..."
-        ./stt.py -i "$input" -l "$language" > "$output"
+        ./stt.py -i "$input" -l "$language" > "$txtfile"
     fi
 
-    input="$output"
+    input="$txtfile"
 fi
 
 
@@ -42,6 +42,6 @@ fi
 tr "[:upper:]" "[:lower:]" < "$input" > /tmp/output.txt
 ./pos_tagger.py -f /tmp/output.txt
 
-# Or we can just pass the data via STDIN
+# Or we can just pass the data via a pipe
 tr "[:upper:]" "[:lower:]" < "$input" | ./pos_tagger.py
 
